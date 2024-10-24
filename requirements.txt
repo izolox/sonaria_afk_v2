@@ -1,0 +1,11 @@
+certifi==2024.8.30
+charset-normalizer==3.4.0
+idna==3.10
+mss==9.0.2
+pillow==11.0.0
+PyGetWindow==0.0.9
+pynput==1.7.7
+PyRect==0.2.0
+requests==2.32.3
+six==1.16.0
+urllib3==2.2.3
