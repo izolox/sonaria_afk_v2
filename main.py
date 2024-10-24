@@ -22,6 +22,8 @@ def main():
     # Create window manager
     window_manager = WindowManager(config.WINDOW_NAME)
     windows = window_manager.get_windows()
+
+    
     
     if not config.DEBUG and (len(windows) < 2):
         print("Not enough windows found, exiting...")
@@ -31,7 +33,18 @@ def main():
         window_manager.preform_action(afk_action)
         
         if time.time() - interval_timer >= (config.DEBUG and 1 or (60 * 5)):
-            telemetry.send_telemetry()
+            estimated_mush = (len(windows) * 150) * ((time.time() - process_start) / (60 * 60))
+
+            # Send telemetry
+            telemetry.send_telemetry({
+                "feilds": [
+                    {
+                        "name": "Estimated Mush",
+                        "value": f"{round(estimated_mush, 2)}"
+                    }
+                ]
+            })
+
             interval_timer = time.time()
         
         time.sleep(config.DEBUG and 10 or (60 * 5))

