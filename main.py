@@ -1,5 +1,6 @@
 from sonaria_afk import *
 from pynput.keyboard import Controller
+import config
 import time
 import config
 
@@ -9,6 +10,7 @@ controller = Controller()
 def afk_action():
     time.sleep(1)
     controller.press('e')
+    controller.release('e')
 
 def main():
     process_start = time.time()
@@ -21,18 +23,18 @@ def main():
     window_manager = WindowManager(config.WINDOW_NAME)
     windows = window_manager.get_windows()
     
-    if len(windows) < 2:
+    if not config.DEBUG and (len(windows) < 2):
         print("Not enough windows found, exiting...")
         return
     
     while True:
         window_manager.preform_action(afk_action)
         
-        if time.time() - interval_timer >= (60 * 10):
+        if time.time() - interval_timer >= (config.DEBUG and 1 or (60 * 5)):
             telemetry.send_telemetry()
             interval_timer = time.time()
         
-        time.sleep(60 * 5)
+        time.sleep(config.DEBUG and 10 or (60 * 5))
         
 
 if __name__ == "__main__":

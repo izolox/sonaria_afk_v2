@@ -1,3 +1,3 @@
 WINDOW_NAME = 'Roblox'
-DEBUG = True
+DEBUG = False
 WEBHOOK_URL = 'https://discord.com/api/webhooks/changeme'

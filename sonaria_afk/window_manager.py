@@ -39,7 +39,9 @@ class WindowManager:
                     callback()
                     
                     time.sleep(1)
-                    print(f"Performed action on window '{window.title}', {window._hWnd}")
+
+                    if config.DEBUG:
+                        print(f"DEBUG: Performed action on window '{window.title}', {window._hWnd}")
                 
             except Exception as e:
                 print(f"Error while performing action on window '{window.title}', {window._hWnd}: {e}")

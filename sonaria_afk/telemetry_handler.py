@@ -1,5 +1,6 @@
 from PIL import Image
 import requests
+import config
 import json
 import mss
 
@@ -103,6 +104,10 @@ class TelemetryHandler:
                 if not response.status_code in [200, 204]:
                     print(f"Failed to send telemetry, status code: {response.status_code}")
                     print("Did you forget to configure the webhook URL?")
+                    
+            # Debug
+            if config.DEBUG:
+                print(f"DEBUG: Sent telemetry to webhook: {self.webhook_url}, {embed_copy}")
                 
         except Exception as e:
             print(f"Error while sending telemetry: {e}")
